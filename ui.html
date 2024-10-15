@@ -1,0 +1,135 @@
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Courgette&family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+
+<style>
+  html {
+    font-size: 10px;
+  }
+
+  body {
+    margin: 16px;
+  }
+
+  span,
+  table {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+  }
+
+  span {
+    margin-right: 16px;
+
+    font-size: 2rem;
+  }
+
+  button,
+  label {
+    font-size: 1.6rem;
+  }
+
+  button {
+    padding: 8px 16px;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    background: none;
+
+    transition:
+      0.2s background ease-in-out,
+      0.2s color ease-in-out;
+  }
+
+  button:hover {
+    background: #e5e5e5;
+  }
+
+  button:active {
+    transform: translateY(1px);
+  }
+
+  #setup input[type='radio'] {
+    display: none;
+  }
+
+  #setup label {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 8px 16px;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    background: none;
+
+    transition:
+      0.2s background ease-in-out,
+      0.2s color ease-in-out;
+  }
+
+  #setup label:hover,
+  #setup input[type='radio']:checked + label {
+    background: #e5e5e5;
+  }
+
+  #search-button {
+    font-size: 2rem;
+    font-family: 'Courgette', sans-serif;
+  }
+
+  #output {
+    font-size: 1.6rem;
+  }
+
+  #output table,
+  #output th,
+  #output td,
+  #output tr {
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+
+    text-align: center;
+  }
+
+  #output th,
+  #output td {
+    padding: 5px 10px;
+  }
+</style>
+
+<div id="setup">
+  <span>Search for fonts in:</span>
+  <br />
+  <input type="radio" id="option-1" name="options" value="entire" />
+  <label for="option-1">Entire document</label>
+
+  <input type="radio" id="option-2" name="options" value="selection" />
+  <label for="option-2">Selection</label>
+
+  <br />
+  <br />
+  <br />
+
+  <button id="search-button" onclick="search()">Get fonts!</button>
+</div>
+
+<br />
+
+<div id="output">
+  <table id="fonts"></table>
+</div>
+
+<script>
+  function search() {
+    document.getElementById('fonts').innerHTML = '';
+
+    parent.postMessage({ pluginMessage: { type: document.querySelector('input[name="options"]:checked').value } }, '*');
+
+    onmessage = (event) => {
+      document.getElementById('fonts').innerHTML += event.data.pluginMessage;
+    };
+  }
+</script>

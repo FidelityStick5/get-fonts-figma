@@ -1,0 +1,12 @@
+{
+  "name": "GetFonts",
+  "id": "1048926788011036203",
+  "api": "1.0.0",
+  "main": "code.js",
+  "editorType": ["figma"],
+  "ui": "ui.html",
+  "documentAccess": "dynamic-page",
+  "networkAccess": {
+    "allowedDomains": ["none"]
+  }
+}
